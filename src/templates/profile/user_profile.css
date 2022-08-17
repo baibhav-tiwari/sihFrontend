@@ -1,0 +1,131 @@
+.profile__details{
+    flex-grow:auto;
+    max-width: 100%;
+}
+
+.profile__header{
+    padding: 1.5rem 0.6rem;
+    background-color: #eee;
+    border-radius: 1rem;
+    width: 70%;
+    margin: 0 auto;
+    padding: 2rem ;
+    margin-top: 2rem;
+}
+.user__profile__pic{
+    width:95%;
+    max-width: 150px;
+    height: auto;
+    margin: auto 2rem;
+}
+
+.profile__image{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.profile__details p{
+    margin-bottom: 0;
+    font-size: 1.2rem;
+}
+
+
+@media screen and (max-width: 768px)
+{
+    .forms__section--food{
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right:0;
+    }
+    .profile__header{
+        width: 100%;
+    }
+}
+@media screen and (max-width:525px){
+    .user__profile__pic{
+        margin:.5rem;
+    }
+    .profile__header{
+        padding:1rem;
+    }
+}
+
+.profile__header--icon{
+    color: #0c79a8;
+    margin-right: 10px;
+}
+
+.details--user__name{
+    color: #189AB4;
+}
+
+.user__btn{
+    display: inline-block;
+    padding: .6rem 1.5rem;
+    margin-bottom: .8rem;
+    border-radius: 1rem; 
+    transition:all .2s;
+    outline: none;
+    border:none;
+    color:#fff;
+}
+.userbtn--1{
+    background-color:#02ae8e ;
+}
+.userbtn--2{
+    background-color:#fd646e;
+}
+.userbtn--1:hover{
+    background-color:#029579;
+}
+.userbtn--2:hover,.userbtn--2:focus{
+    background-color: #fd4e4b;
+    box-shadow: 2px solid #000;
+}
+.other__header--nav{
+    margin-top: 0;
+    padding:0;
+    background-color:#fff;
+    border-radius: 0;
+    border-top: 2px solid #555;
+    border-bottom: 2px solid #555;
+}
+.notification__filters .active{
+    background-color: #0c79a8;
+    border-radius: 10px;
+    color:#fff;
+}
+
+.profile__section--request_content{
+    padding:1rem;
+    margin-top: 2rem;
+}
+
+/*MODAL*/
+.modal__button--bottom{
+    padding: 7px 1.5rem;
+    border-radius: 10px;
+    border: 2px solid;
+    color:#fff;
+    margin-right: .8rem;
+}
+.btn--cancel{
+    background-color: red;
+    border-color: red;
+}
+.btn--cancel:focus{
+    outline: none;
+    background-color: #eee;
+    color:red;
+}
+.btn--submit{
+    background-color: #0c79a8;
+    border-color: #0c79a8;
+}
+
+.btn--submit:focus{
+    outline: none;
+    background-color: #eee;
+    color:#0c79a8;
+}

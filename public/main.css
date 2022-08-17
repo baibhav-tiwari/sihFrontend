@@ -1,0 +1,100 @@
+:root {
+    --color-primary: #5ec576;
+    --color-secondary: #ffcb03;
+    --color-tertiary: #ff585f;
+    --color-primary-darker: #4bbb7d;
+    --color-secondary-darker: #ffbb00;
+    --color-tertiary-darker: #fd424b;
+    --color-primary-opacity: #5ec5763a;
+    --color-secondary-opacity: #ffcd0331;
+    --color-tertiary-opacity: #ff58602d;
+    --gradient-primary: linear-gradient(to top left, #39b385, #9be15d);
+    --gradient-secondary: linear-gradient(to top left, #ffb003, #ffcb03);
+    --color-white:#fff;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+  }
+  
+  html {
+    box-sizing: border-box;
+  }
+  
+  body {
+    
+    font-weight: 300;
+    color: #444;
+    line-height: 1.9;
+    background-color: #f3f3f3;
+  }
+  .container{
+    margin-left: 5px;
+    margin-right: 5px;
+
+  }
+  .section {
+    padding: 15rem 3rem;
+    border-top: 1px solid #ddd;
+  
+    transition: transform 1s, opacity 1s;
+  }
+  .new__section{
+    padding-top:7rem;
+    padding-bottom: 6rem;
+    border-top: 1px solid #ddd;
+}
+
+  .section__alternate{
+    background-color: #f8f8f8; 
+  }
+
+  .section__title {
+    max-width: 80rem;
+    margin: 0 auto 3rem auto;
+  }
+  .section__header {
+    font-size: 3rem;
+    color: var(--color-primary);
+    text-align: left;
+    line-height: 1.2;
+    font-weight: 400;
+  }
+  .section__header--center {
+    text-align: center;
+  }
+  
+  @media screen and (max-width: 350px){
+    .section__header{
+      font-size: 2.6rem;
+    }
+}
+
+  .section__description {
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #5ec576;
+    margin-bottom: 1rem;
+  }
+
+  
+  p {
+    color: #666;
+    font-size: 1.25rem;  }
+  @media screen and (max-width:375px)
+  {
+    p{
+      font-size: 1.1rem;
+    }
+  }
+  /* This is BAD for accessibility! Don't do in the real world! */
+  button:focus {
+    outline: none;
+  }
+  @media screen and (max-width: 995px){
+    *{
+      font-size: 99%;
+    }
+}

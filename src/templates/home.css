@@ -1,0 +1,76 @@
+/*******************/
+/* ---------GENERAL--------------- */
+
+
+.NewSection .SectionHeading h2{
+text-align: left;
+font-size: 2.5rem;
+padding-bottom: 1rem;
+padding-top: 1.5rem;
+margin-bottom:1rem;
+margin-top: 0.5rem;
+}
+
+.section__content{
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+.SectionAlternate{
+background-color: #f8f8f8;
+}
+.btn {
+    display: inline-block;
+    background-color: var(--color-primary);
+    font-size: 1.1rem;
+    font-family: inherit;
+    text-align: center;
+    font-weight: 500;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10rem;
+    cursor: pointer;
+    transition: all 0.8s;
+    color: #fff;
+  }
+  
+  .btn:hover {
+    
+    color:var(--color-primary);
+    background-color: #fff;
+    border:2px solid var(--color-primary);
+
+  }
+  
+  .btn--text {
+    display: inline-block;
+    background: none;
+    font-size: 1.1rem;
+    font-family: inherit;
+    font-weight: 500;
+    color: var(--color-primary);
+    border: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  button:focus{
+      outline: none;
+      background-color: var(--color-primary-darker);
+  }
+
+.section__side__image{
+  width: 90%;
+  height: auto;
+  vertical-align: middle;
+  max-width: 40rem;
+  padding: 2rem;
+}
+
+
+.spinner__loader{
+  text-align: center;
+}
+
+

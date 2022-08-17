@@ -1,0 +1,180 @@
+.btn__normal{
+    padding:0.3rem;
+    background-color: #fff;
+    border-radius: 5px;
+}
+.btn__normal:focus{
+    outline: none;
+    background-color: #17a2b8;
+    color: #fff;
+    /*#17a2b8*/
+}
+.forms__section{
+    padding: 13rem 3rem 6rem 3rem;
+}
+.forms__section--food{
+    padding: 12rem 3rem 6rem 3rem;
+}
+
+.form__content__div{
+    margin-left: auto;
+    margin-right: auto;
+    max-width:30rem;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+    background-color: #f5f5f5;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.signup__div{
+    max-width: 100%;
+}
+.form__heading h2{
+    font-size: 3rem;
+    color: var(--color-primary);
+    margin-bottom: 1.2rem;
+    font-weight: 380;
+}
+@media screen and (max-width: 490px){
+    .form__heading h2{
+        font-size: 2.3rem;
+
+    }
+}
+
+@media screen and (max-width: 400px){
+    .forms__section{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .form__heading h2{
+        font-size: 2rem;
+
+    }
+}
+
+.form-label{
+    font-size: 1.1rem;
+    color:#444;
+}
+
+.label__important{
+    color: red;
+    font-weight: bold;    
+}
+
+.muted_text--forms{
+    font-size: 0.8rem;
+    color: #888;
+    font-weight: 500;
+}
+
+.form__icon{
+    margin-left: 4px;
+    margin-right: 8px;
+    margin-bottom: 4px;
+    font-size: 20px;
+    color:var(--color-primary);
+}
+.form-group{
+    margin-top: 2rem;
+}
+
+.form__btn{
+    margin-top:2rem;
+}
+.form__btn--normal{
+    display: inline-block;
+    padding: .6rem 1.5rem;
+    margin-bottom: .8rem;
+    border-radius: 1rem; 
+    transition:all .2s;
+    outline: none;
+    border:none;
+    color:#fff;
+}
+.btn--green{
+    background-color:#02ae8e ;
+}
+.btn--green:hover{
+    background-color:#029579;
+}
+.btn--red{
+    background-color:#fd646e;
+}
+.btn--red:hover,.btn--red:focus{
+    background-color: #fd4e4b;
+    box-shadow: 2px solid #000;
+}
+
+input{
+    font-size: .9rem !important;
+}
+.form__other__text{
+    margin-top: 2rem;
+    font-size: 1rem;
+}
+
+
+input:focus{
+    outline: none;
+}
+.multiselectContainer input{
+    display: block !important;
+    width: 100% !important;
+    background-color: #fff !important;
+    background-clip: padding-box !important;
+    border: 1px solid #ced4da !important;
+    border-radius: .25rem !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+}
+
+
+
+/*ASK address form*/
+
+.delievery__address{
+    background-color: #ddd;
+    padding:2rem;
+    border-radius: .8rem;
+    margin-bottom: 3rem;
+}
+.address__heading{
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+.buttons__div{
+    padding:2rem;
+    margin: auto;
+}
+.address__btn{
+    display: block;
+    padding:.7rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    border-radius: 1rem;
+}
+.invalid__feedback{
+    font-size: 80%;
+    color: #dc3545;
+}
+
+
+.email__confirmation{
+    font-size: 1rem;
+    color: red;
+}
+.reset__form__button{
+    background-color: red;
+    border-radius: .6rem;
+    color: #fff;
+    padding:0.5rem 0.8rem;
+    border: transparent;
+}
+.reset__form__button:hover, .reset__form__button:focus{
+    background-color:#f53131;
+    color: #fff;
+}
