@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Form from 'react-bootstrap/Form';
 import { signUp } from '../../actions/index';
+import Header from '../header/header.js'
 import validator from 'validator';
 import './forms.css'
 import { State, City } from 'country-state-city';
@@ -30,19 +31,10 @@ class signup extends Component {
             email: "",
             password: "",
             contact: "",
-            addressLine1: "",
-            addressLine2: "",
-            postalCode: "",
-            city: "",
-            addressState: "",
-            country: "",
-            stateList: [],
-            cityList: [],
-            address: [],
+
             errors: {
                 username: "", email: "", password: "", contact: "",
-                addressLine1: "", city: "", addressState: "", postalCode: "",
-                country: ""
+
             }
         }
     }
@@ -62,17 +54,15 @@ class signup extends Component {
     }
 
     validateForm = (data) => {
-        const { username, email, password, contact, addressLine1, city, addressState, postalCode, country } = data;
-        let emailError = "", passwordError = "", usernameError = "", contactError = "", addressError = "", error = false;
+        const { username, email, password, contact } = data;
+        let emailError = "", passwordError = "", usernameError = "", contactError = "", error = false;
         let cityError = "", countryError = "", postalError = "", stateError = "";
         if (!username.trim()) {
             usernameError = "Username is required";
             error = true;
         }
-        if (!email) {
-            emailError = "Email is required";
-            error = true;
-        }
+
+
         else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
             emailError = "Email address is Invalid";
             error = true;
@@ -88,82 +78,21 @@ class signup extends Component {
         if (!contact.trim()) {
             contactError = "Contact required";
             error = true;
-        } else if (!validator.isMobilePhone(contact)) {
+
+        }
+        else if (!validator.isMobilePhone(contact)) {
             contactError = "Invalid Mobile number";
             error = true;
 
         }
-        if (!addressLine1.trim()) {
-            addressError = "This address field is required";
-            error = true;
-        }
-        if (!city) {
-            cityError = "City is required";
-            error = true;
-        }
-        if (!addressState) {
-            stateError = "State is required";
-            error = true;
-        }
-
-        if (!country) {
-            countryError = "You must choose one country";
-            error = true;
-        }
-        if (!postalCode.trim()) {
-            postalError = "Postal Code is required";
-            error = true;
-        }
-
-
-        this.setState(prevState => ({
-            errors: {
-                username: usernameError,
-                email: emailError,
-                password: passwordError,
-                contact: contactError,
-                addressLine1: addressError,
-                city: cityError,
-                addressState: stateError,
-                country: countryError,
-                postalCode: postalError
-            }
-        }))
 
         return !error;
     }
 
     notifyFail = (message) => toast.error(message);
 
-    handleCountryChange = value => {
-        let states = State.getStatesOfCountry(value.country_code);
-        let newStateList = []
-        for (var i = 0; i < states.length; i++) {
-            var obj = { label: states[i].name, value: states[i].name, state_code: states[i].isoCode, country_code: states[i].countryCode }
-            newStateList.push(obj);
-        }
-        this.setState({
-            country: value,
-            countryCode: value.country_code,
-            stateList: newStateList,
-            addressState: "",
-            city: ""
-        })
-    }
 
-    // handleAddressStateChange = value => {
-    //     let cities = City.getCitiesOfState(value.country_code, value.state_code);
-    //     let newCityList = [];
-    //     for (var i = 0; i < cities.length; i++) {
-    //         var obj = { label: cities[i].name, value: cities[i].name, state_code: cities[i].stateCode, country_code: cities[i].countryCode }
-    //         newCityList.push(obj);
-    //     }
-    //     this.setState({
-    //         addressState: value,
-    //         cityList: newCityList,
-    //         city: ""
-    //     })
-    // }
+
 
     handleCityChange = value => {
         this.setState({
@@ -178,10 +107,8 @@ class signup extends Component {
         //Validate the form
         const isValid = this.validateForm(this.state);
         if (isValid) {
-            const { username, email, password, contact, addressLine1, addressLine2, city, addressState, postalCode, country } = this.state;
-            var userAddress = { addressLine1, addressLine2, city: city, state: addressState.value, postalCode, country: country.value }
-            const address = [userAddress]
-            const userDetails = { name: username, email, password, contact, address }
+            const { username, email, password, contact } = this.state;
+            const userDetails = { name: username, email, password, contact, }
             console.log(userDetails);
             await this.props.signUp(userDetails);
 

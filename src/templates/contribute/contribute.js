@@ -134,7 +134,7 @@ export default class contribute extends Component {
                                             </Card.Text>
                                         </Card.Body>
                                         <Card.Footer className="contribute__card__footer">
-                                            <Link to="/register" className="btn contribute__card__btn">Register Organization &#8594;</Link>
+                                            <Link to="/signup" className="btn contribute__card__btn">Register Organization &#8594;</Link>
                                         </Card.Footer>
                                     </Card>
                                 </CardDeck>
