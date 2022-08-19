@@ -58,8 +58,8 @@ class header extends Component {
                                         </NavDropdown.Item>
                                     </LinkContainer>
                                 </NavDropdown>
-
-                                {/* <NavDropdown title="Add New Request" id="add_food_requests_navbar" className="NavLink">
+                                {/* 
+                                <NavDropdown title="Add New Request" id="add_food_requests_navbar" className="NavLink">
                                     <LinkContainer to="/donate">
                                         <NavDropdown.Item className="nav-link">
                                             <span className="NavLink">Donate Food</span>
@@ -73,19 +73,19 @@ class header extends Component {
                                     </LinkContainer>
                                 </NavDropdown> */}
 
-                                {/* <NavDropdown title="Organizations" id="organizations_navbar" className="NavLink">
-                                    <LinkContainer to="/organizations">
+                                <NavDropdown title="Organizations" id="organizations_navbar" className="NavLink">
+                                    <LinkContainer to="/hei">
                                         <NavDropdown.Item className="nav-link">
-                                            <span className="NavLink">LOGIN</span>
+                                            <span className="NavLink">HEI</span>
                                         </NavDropdown.Item>
                                     </LinkContainer>
 
-                                    <LinkContainer to="/signup">
+                                    <LinkContainer to="/home">
                                         <NavDropdown.Item className="nav-link">
-                                            <span className="NavLink">SIGNUP</span>
+                                            <span className="NavLink">ORGANISATION</span>
                                         </NavDropdown.Item>
                                     </LinkContainer>
-                                </NavDropdown> */}
+                                </NavDropdown>
 
                                 <NavDropdown.Divider />
                             </Nav>
