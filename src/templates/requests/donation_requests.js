@@ -1,43 +1,43 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux';
-import FormHeader from'../header/form__header';
-import {Container, Row, Col,Form} from 'react-bootstrap';
+import { connect } from 'react-redux';
+import FormHeader from '../header/form__header';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import './pickup.css';
-import {renderCard} from './request_cards.js'
-import {fetchRequests, deleteFoodRequest, getUserDetails} from '../../actions/index'
-import {toast, ToastContainer} from 'react-toastify';
+import { renderCard } from './request_cards.js'
+import { fetchRequests, deleteFoodRequest, getUserDetails } from '../../actions/index'
+import { toast, ToastContainer } from 'react-toastify';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Select from 'react-select';
-import {foodTypes} from '../../variables';
-import {GiKnifeFork, GiMailbox} from 'react-icons/gi';
-import { State, City }  from 'country-state-city';
-import {FaCity, FaMapMarkedAlt} from 'react-icons/fa';
+import { foodTypes } from '../../variables';
+import { GiKnifeFork, GiMailbox } from 'react-icons/gi';
+import { State, City } from 'country-state-city';
+import { FaCity, FaMapMarkedAlt } from 'react-icons/fa';
 import Loader from "../loader";
 
 class PickupRequest extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            foodtype:"",
-            userCity:"",
-            userState:"",
-            cityList:[],
-            stateList:[],
-            city:"",
-            addressState:"",
-            country:"",
-            postalCode:"",
-            limit:12,
-            requestType:"Donate",
-            formError:"",
+            foodtype: "",
+            userCity: "",
+            userState: "",
+            cityList: [],
+            stateList: [],
+            city: "",
+            addressState: "",
+            country: "",
+            postalCode: "",
+            limit: 12,
+            requestType: "Donate",
+            formError: "",
             hasMore: true,
-            data:[],
-            foodTypeFilter:""
+            data: [],
+            foodTypeFilter: ""
         }
     }
-    
-    componentDidMount = async()=>{
-        if(this.props.auth.isSignedIn){
+
+    componentDidMount = async () => {
+        if (this.props.auth.isSignedIn) {
             await this.getUserData();
         }
         await this.fetchData();
@@ -47,32 +47,32 @@ class PickupRequest extends Component {
     notifySuccess = (message) => toast.success(message);
 
     // api calls
-    getUserData = async()=>{
+    getUserData = async () => {
         await this.props.getUserDetails();
-        if(this.props.userProfile.profile){
+        if (this.props.userProfile.profile) {
             let address = this.props.userProfile.profile.address[0]
             this.setState({
                 userCity: address.city
-            }, ()=>{this.setStateList(this.state.userCity)})
+            }, () => { this.setStateList(this.state.userCity) })
         }
     }
 
-    fetchData = async()=>{
-        if(!this.state.hasMore) return;
-        let { data, limit, requestType, city, addressState, country, postalCode}= this.state;
+    fetchData = async () => {
+        if (!this.state.hasMore) return;
+        let { data, limit, requestType, city, addressState, country, postalCode } = this.state;
         const skip = data.length;
-        if(addressState){
+        if (addressState) {
             addressState = addressState.value;
         }
-        let apiData = {Limit:limit, Skip:skip, requestType, city, state:addressState, country, postalCode}
+        let apiData = { Limit: limit, Skip: skip, requestType, city, state: addressState, country, postalCode }
         await this.props.fetchRequests(apiData);
-        if(this.props.food_Requests.message==="Success"){
+        if (this.props.food_Requests.message === "Success") {
             let newData = this.props.food_Requests.data.foodRequest;
-            if(newData&& newData.length>0){
+            if (newData && newData.length > 0) {
                 var hasMoreNew;
-                if(newData.length<limit){
+                if (newData.length < limit) {
                     hasMoreNew = false;
-                }else{
+                } else {
                     hasMoreNew = true;
                 }
                 const resData = data.concat(newData)
@@ -80,29 +80,29 @@ class PickupRequest extends Component {
                     hasMore: hasMoreNew,
                     data: resData
                 })
-            }else{
-                this.setState({hasMore:false})
+            } else {
+                this.setState({ hasMore: false })
             }
         }
     }
 
-    deleteFoodPost = async(id)=>{
-        await this.props.deleteFoodRequest({id})
-        if(this.props.foodRequestConfirmation.error){
+    deleteFoodPost = async (id) => {
+        await this.props.deleteFoodRequest({ id })
+        if (this.props.foodRequestConfirmation.error) {
             this.notifyFail(this.props.foodRequestConfirmation.error);
-        }else if(this.props.foodRequestConfirmation.message){
+        } else if (this.props.foodRequestConfirmation.message) {
             this.notifySuccess(this.props.foodRequestConfirmation.message);
             let data = this.state.data
             let newData = [];
-            for(var i=0;i<data.length;i++){
-                if(data[i]._id !== id){
+            for (var i = 0; i < data.length; i++) {
+                if (data[i]._id !== id) {
                     newData.push(data[i]);
                 }
             }
             this.setState({
                 data: newData,
             }, this.fetchData)
-            
+
         }
     }
 
@@ -111,93 +111,93 @@ class PickupRequest extends Component {
         this.setState({ foodTypeFilter: foodtype });
     }
 
-    handleAddressStateChange = value =>{
+    handleAddressStateChange = value => {
         let cities = City.getCitiesOfState(value.country_code, value.state_code);
         let newCityList = [];
-        for(var i=0;i<cities.length;i++){
-            var obj = {label:cities[i].name, value:cities[i].name, state_code:cities[i].stateCode, country_code:cities[i].countryCode}
-            newCityList.push(obj);   
+        for (var i = 0; i < cities.length; i++) {
+            var obj = { label: cities[i].name, value: cities[i].name, state_code: cities[i].stateCode, country_code: cities[i].countryCode }
+            newCityList.push(obj);
         }
         this.setState({
-            addressState:value,
+            addressState: value,
             cityList: newCityList,
-            city:""
+            city: ""
         })
     }
 
-    handleCityChange = value =>{
+    handleCityChange = value => {
         this.setState({
-            city:value,
-            data:[],
-            hasMore:true
+            city: value,
+            data: [],
+            hasMore: true
         }, this.fetchData)
 
     }
 
-    handleInputChange = (event)=>{
+    handleInputChange = (event) => {
         const target = event.target;
         const name = target.name;
         this.setState({
-          [name]: event.target.value
+            [name]: event.target.value
         });
     }
 
-    setStateList = value=>{
+    setStateList = value => {
         //value contains city of the user.
         let states = State.getStatesOfCountry(value.country_code);
         let newStateList = []
-        for(var i=0;i<states.length;i++){
-            var obj = {label:states[i].name, value:states[i].name, state_code:states[i].isoCode, country_code:states[i].countryCode}
-            newStateList.push(obj);   
+        for (var i = 0; i < states.length; i++) {
+            var obj = { label: states[i].name, value: states[i].name, state_code: states[i].isoCode, country_code: states[i].countryCode }
+            newStateList.push(obj);
         }
         this.setState({
             stateList: newStateList,
-            addressState:"",
-            city:""
+            addressState: "",
+            city: ""
         })
     }
 
-    resetFilterButton = (e) =>{
+    resetFilterButton = (e) => {
         e.preventDefault();
         this.setState({
-            foodTypeFilter:"",
-            postalCode:"",
-            city:"",
-            addressState:"",
-            hasMore:true
+            foodTypeFilter: "",
+            postalCode: "",
+            city: "",
+            addressState: "",
+            hasMore: true
         }, this.fetchData)
     }
 
-    
+
     //rendering
-    renderRequests = ()=>{
+    renderRequests = () => {
         let posts = this.state.data;
-        if(this.state.postalCode || this.state.foodTypeFilter){
+        if (this.state.postalCode || this.state.foodTypeFilter) {
             posts = posts.filter((post) => {
-                return(
-                    ((this.state.foodTypeFilter&&post.foodType.includes(this.state.foodTypeFilter.value))||(this.state.postalCode&&post.address[0].postalCode.startsWith(this.state.postalCode)))
+                return (
+                    ((this.state.foodTypeFilter && post.foodType.includes(this.state.foodTypeFilter.value)) || (this.state.postalCode && post.address[0].postalCode.startsWith(this.state.postalCode)))
                 )
             });
         }
-        if(posts&&posts.length>0){
-            return posts.map((post,  key)=>{
-                return renderCard({post,val:key, authId:this.props.auth.userId, deleteFoodRequest: (id)=>this.deleteFoodPost(id)})
+        if (posts && posts.length > 0) {
+            return posts.map((post, key) => {
+                return renderCard({ post, val: key, authId: this.props.auth.userId, deleteFoodRequest: (id) => this.deleteFoodPost(id) })
             })
-        }else if(!this.state.hasMore){
-            return(
+        } else if (!this.state.hasMore) {
+            return (
                 <h3>No request exist at your location</h3>
             )
-        }else return;
-        
+        } else return;
+
     }
 
     render() {
         return (
             <div>
-                <FormHeader/>
-                <ToastContainer/>
+                <FormHeader />
+                <ToastContainer />
                 <div className="forms__section--food">
-                    <Container>    
+                    <Container>
                         <div className="form__heading">
                             <h2>Donation Requests </h2>
                         </div>
@@ -206,48 +206,48 @@ class PickupRequest extends Component {
 
                             <Form.Group as={Row} controlId="food__type">
                                 <Col md={6}>
-                                <Form.Group controlId="food__type">
-                                    <Form.Label><span className="form__icon"><GiKnifeFork/></span>Food Type</Form.Label>
-                                    <div>
-                                        <Select name="foodtype" options={foodTypes} className="basic-multi-select" value={this.state.foodTypeFilter} onChange={this.handlefoodTypeChange} classNamePrefix="select" placeholder="Select food type"/>
-                                    </div>
-                                </Form.Group>
+                                    <Form.Group controlId="food__type">
+                                        <Form.Label><span className="form__icon"><GiKnifeFork /></span>Food Type</Form.Label>
+                                        <div>
+                                            <Select name="foodtype" options={foodTypes} className="basic-multi-select" value={this.state.foodTypeFilter} onChange={this.handlefoodTypeChange} classNamePrefix="select" placeholder="Select food type" />
+                                        </div>
+                                    </Form.Group>
                                 </Col>
-                                
+
                                 <Col md={6}>
                                     <Form.Group controlId="user__zip">
-                                    <Form.Label><span className="form__icon"><GiMailbox/></span><span className="label__important">*</span> Postal Code</Form.Label>
-                                    <input name="postalCode" className="form-control" type="text" value={this.state.postalCode} placeholder="Enter Postal Code" onChange={this.handleInputChange} />
-                                </Form.Group>
+                                        <Form.Label><span className="form__icon"><GiMailbox /></span><span className="label__important">*</span> Postal Code</Form.Label>
+                                        <input name="postalCode" className="form-control" type="text" value={this.state.postalCode} placeholder="Enter Postal Code" onChange={this.handleInputChange} />
+                                    </Form.Group>
                                 </Col>
 
                                 <Col md={6}>
-                                <Form.Group controlId="user__state">
-                                    <Form.Label><span className="form__icon"><FaMapMarkedAlt/></span><span className="label__important">**</span> State</Form.Label>
-                                    <Select name="addressState" options={this.state.stateList} className="basic-multi-select" value={this.state.addressState} onChange={this.handleAddressStateChange} classNamePrefix="select" placeholder="Select State"/>
-                                </Form.Group>        
+                                    <Form.Group controlId="user__state">
+                                        <Form.Label><span className="form__icon"><FaMapMarkedAlt /></span><span className="label__important">**</span> State</Form.Label>
+                                        <Select name="addressState" options={this.state.stateList} className="basic-multi-select" value={this.state.addressState} onChange={this.handleAddressStateChange} classNamePrefix="select" placeholder="Select State" />
+                                    </Form.Group>
                                 </Col>
 
                                 <Col md={6}>
-                                <Form.Group controlId="user__city">
-                                    <Form.Label><span className="form__icon"><FaCity/></span><span className="label__important">**</span> City</Form.Label>
-                                    <Select name="city" options={this.state.cityList} className="basic-multi-select" value={this.state.city} onChange={this.handleCityChange} classNamePrefix="select" placeholder="Select City"/>
-                                </Form.Group>
+                                    <Form.Group controlId="user__city">
+                                        <Form.Label><span className="form__icon"><FaCity /></span><span className="label__important">**</span> City</Form.Label>
+                                        <Select name="city" options={this.state.cityList} className="basic-multi-select" value={this.state.city} onChange={this.handleCityChange} classNamePrefix="select" placeholder="Select City" />
+                                    </Form.Group>
                                 </Col>
                             </Form.Group>
-                    
-                            <div style={{textAlign:'right'}}>   
-                                <button className="filter__button reset_filter_btn"  onClick={this.resetFilterButton}>Reset Filter</button>   
-                            </div> 
-                            <div className="invalid__feedback">** To apply State or City filter both 'State' and 'City' fields must be filled</div>   
+
+                            <div style={{ textAlign: 'right' }}>
+                                <button className="filter__button reset_filter_btn" onClick={this.resetFilterButton}>Reset Filter</button>
+                            </div>
+                            <div className="invalid__feedback">** To apply State or City filter both 'State' and 'City' fields must be filled</div>
                         </div>
 
                         <div className="requests__content">
-                            <InfiniteScroll 
+                            <InfiniteScroll
                                 dataLength={this.state.data.length}
-                                next = {this.fetchData}
-                                hasMore = {this.state.hasMore}
-                                loader={<Loader/>}
+                                next={this.fetchData}
+                                hasMore={this.state.hasMore}
+                                loader={<Loader />}
                                 endMessage={<></>}
                                 className="flex flex-wrap scroll_div_outer"
                             >
@@ -261,15 +261,15 @@ class PickupRequest extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps)=>{
-    return({
+const mapStateToProps = (state, ownProps) => {
+    return ({
         ...ownProps,
-        food_Requests:state.donateRequests,
-        auth:state.auth,
+        food_Requests: state.donateRequests,
+        auth: state.auth,
         foodRequestConfirmation: state.foodRequest,
         userProfile: state.userProfile
     })
 
 }
 
-export default connect(mapStateToProps,{fetchRequests, deleteFoodRequest, getUserDetails})(PickupRequest);
+export default connect(mapStateToProps, { fetchRequests, deleteFoodRequest, getUserDetails })(PickupRequest);

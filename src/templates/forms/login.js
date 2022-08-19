@@ -25,66 +25,66 @@ class login extends Component {
             }
         }
     }
-    // componentDidMount() {
-    //     if (this.props.auth.isSignedIn) {
-    //         history.push('/')
-    //     }
-    //     if (this.props.foodRequest.error) {
-    //         this.notifyFail("You need to login first to continue");
-    //     }
-    // }
-    // handleInputChange = (event) => {
-    //     const target = event.target;
-    //     const name = target.name;
-    //     this.setState({
-    //         [name]: event.target.value
-    //     });
-    // }
-    // validateForm = (data) => {
-    //     const { email, password } = data;
-    //     let emailError = "", passwordError = "", error = false;
-    //     if (!email) {
-    //         emailError = "Email is required";
-    //         error = true;
-    //     }
-    //     else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
-    //         emailError = "Email address is Invalid";
-    //         error = true;
-    //     }
-    //     if (!password.trim()) {
-    //         passwordError = "Password is required"
-    //         error = true;
-    //     }
-    //     else if (password.length < 6) {
-    //         passwordError = "Password must be 6 or more characters long"
-    //         error = true;
-    //     }
+    componentDidMount() {
+        if (this.props.auth.isSignedIn) {
+            history.push('/')
+        }
+        if (this.props.foodRequest.error) {
+            this.notifyFail("You need to login first to continue");
+        }
+    }
+    handleInputChange = (event) => {
+        const target = event.target;
+        const name = target.name;
+        this.setState({
+            [name]: event.target.value
+        });
+    }
+    validateForm = (data) => {
+        const { email, password } = data;
+        let emailError = "", passwordError = "", error = false;
+        if (!email) {
+            emailError = "Email is required";
+            error = true;
+        }
+        else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+            emailError = "Email address is Invalid";
+            error = true;
+        }
+        if (!password.trim()) {
+            passwordError = "Password is required"
+            error = true;
+        }
+        else if (password.length < 6) {
+            passwordError = "Password must be 6 or more characters long"
+            error = true;
+        }
 
-    //     this.setState(prevState => ({
-    //         errors: {
-    //             email: emailError,
-    //             password: passwordError
-    //         }
-    //     }))
+        this.setState(prevState => ({
+            errors: {
+                email: emailError,
+                password: passwordError
+            }
+        }))
 
-    //     return !error;
-    // }
+        return !error;
+    }
 
-    // notifyFail = (message) => toast.error(message);
+    notifyFail = (message) => toast.error(message);
 
-    // handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     const isValid = this.validateForm(this.state);
-    //     if (isValid) {
-    //         const { email, password } = this.state;
-    //         await this.props.signIn({ email, password });
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        const isValid = this.validateForm(this.state);
+        if (isValid) {
+            const { email, password } = this.state;
+            await this.props.signIn({ email, password });
 
-    //         if (this.props.auth.error) {
-    //             this.notifyFail(this.props.auth.error);
-    //         }
-    //     }
+            if (this.props.auth.error) {
+                this.notifyFail(this.props.auth.error);
+            }
+        }
 
-    // }
+    }
     render() {
         return (
             <div>
@@ -113,7 +113,7 @@ class login extends Component {
                                     </div>
                                 </Form.Group>
                                 <div className="form__btn">
-                                    <button className="btn" type="submit" link="/home.js">
+                                    <button className="btn" type="submit" onClick="hei.js()">
                                         Login
                                     </button>
                                 </div>
