@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Logo from '../../styles/img/logo_transparent.png';
-import { Image, Navbar, Nav, NavDropdown } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap'
+import FoodBasket from '../../styles/img/home.png';
+import { Row, Col, Image, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap'
 import './header.css';
+import { signOut } from '../../actions/index'
 
 class header extends Component {
+
     renderUserStatus = () => {
         if (this.props.isSignedIn) {
+            console.log(this.props.userStatus.userId);
             return (
                 <>
                     <Link to="/logout" className="nav-link"><span className="NavLink">Logout</span></Link>
@@ -26,11 +30,12 @@ class header extends Component {
         }
     }
 
+
     render() {
         return (
             <div className="header__section">
                 <header className="header">
-                    <Navbar collapseOnSelect expand="lg" className="page__Navigation form__nav--sticky">
+                    <Navbar collapseOnSelect expand="lg" className="page__Navigation">
                         <Navbar.Brand>
                             <Link to="/"><Image src={Logo} className="d-inline-block align-top" id="CompanyImage" alt="company_logo" />{' '}</Link>
                         </Navbar.Brand>
@@ -53,8 +58,8 @@ class header extends Component {
                                         </NavDropdown.Item>
                                     </LinkContainer>
                                 </NavDropdown>
-
-                                {/* <NavDropdown title="Add New Request" id="add_food_requests_navbar" className="NavLink">
+                                {/* 
+                                <NavDropdown title="Add New Request" id="add_food_requests_navbar" className="NavLink">
                                     <LinkContainer to="/donate">
                                         <NavDropdown.Item className="nav-link">
                                             <span className="NavLink">Donate Food</span>
@@ -69,15 +74,15 @@ class header extends Component {
                                 </NavDropdown> */}
 
                                 <NavDropdown title="Organizations" id="organizations_navbar" className="NavLink">
-                                    <LinkContainer to="/organizations">
+                                    <LinkContainer to="/hei">
                                         <NavDropdown.Item className="nav-link">
-                                            <span className="NavLink">LOGIN</span>
+                                            <span className="NavLink">HEI</span>
                                         </NavDropdown.Item>
                                     </LinkContainer>
 
-                                    <LinkContainer to="/register">
+                                    <LinkContainer to="/home">
                                         <NavDropdown.Item className="nav-link">
-                                            <span className="NavLink">SIGNUP</span>
+                                            <span className="NavLink">ORGANISATION</span>
                                         </NavDropdown.Item>
                                     </LinkContainer>
                                 </NavDropdown>
@@ -90,16 +95,44 @@ class header extends Component {
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
+                    <div className="header__title">
+                        <Row>
+                            <Col sm={12} md={9}>
+                                <h1>
+                                    Where
+                                    {/* <!-- Green highlight effect */}
+                                    <span className="highlight"> Requirements </span>
+                                    meets<br />
+                                    <span className="highlight">Funds</span>
+                                </h1>
+                                <br />
+                                <h4>Together we Raise and Together we Rise</h4>
+                                <br />
+                                <LinkContainer to="/contribute">
+                                    <button className="header__btn__link btn--text btn--scroll-to">START &rarr;</button>
+                                </LinkContainer>
+                                <br />
+
+                            </Col>
+                            <Col sm={12} md={3}>
+                                <div className="header__side__image">
+                                    <Image src={FoodBasket} className="header__side__basketimage" />
+                                </div>
+                            </Col>
+                        </Row>
+
+                    </div>
                 </header>
             </div>
         );
     }
 }
-
 const mapStateToProps = (state => {
     return {
         isSignedIn: state.auth.isSignedIn,
-        userStatus: state.auth
-    }
+        userStatus: state.auth,
+
+    };
 });
-export default connect(mapStateToProps)(header);
+
+export default connect(mapStateToProps, { signOut })(header);
